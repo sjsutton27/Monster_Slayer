@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monster Slayer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/vue@3.2.0/dist/vue.global.prod.js"
+      defer
+    ></script>
+
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Monster Slayer</h1>
+    </header>
+    <div id="game">
+      <div class="monster-player-container">
+        <section id="monster" class="container">
+          <img
+            :src="monsterImages[currentMonsterImageIndex]"
+            alt="Monster Image"
+          />
+          <h2>Monster Health</h2>
+          <div class="healthbar">
+            <div class="healthbar__value" :style="monsterBarStyles"></div>
+          </div>
+        </section>
+
+        <section id="player" class="container">
+          <img
+            :src="playerImages[currentPlayerImageIndex]"
+            alt="Player Image"
+          />
+          <h2>Player Health</h2>
+          <div class="healthbar">
+            <div class="healthbar__value" :style="playerBarStyles"></div>
+          </div>
+        </section>
+      </div>
+
+      <section class="container" v-if="winner">
+        <h2>Game Over!</h2>
+        <h3 v-if="winner === 'monster'">You lost!</h3>
+        <h3 v-else-if="winner === 'player'">You won!</h3>
+        <h3 v-else>Draw!</h3>
+        <button @click="startGame">Start New Game</button>
+      </section>
+
+      <section id="controls" v-else>
+        <button @click="attackMonster">ATTACK</button>
+        <button :disabled="mayUseSpecialAttack" @click="specialAttackMonster">
+          SPECIAL ATTACK
+        </button>
+        <button @click="healPlayer">HEAL</button>
+        <button @click="blockAttack">BLOCK</button>
+        <button :disabled="mayUsePoison" @click="poisonAttack">
+          POISON ATTACK
+        </button>
+        <button
+          @click="levelUp"
+          :disabled="mayUseLevelUp"
+          class="level-up-button"
+        >
+          LEVEL UP
+        </button>
+        <button @click="surrender" class="surrender-button">SURRENDER</button>
+      </section>
+
+      <section id="log" class="container">
+        <h2>Battle Log</h2>
+        <ul>
+          <li v-for="logMessage in logMessages">
+            <span
+              :class="{'log--player': logMessage.actionBy === 'player', 'log--monster': logMessage.actionBy === 'monster'}"
+              >{{ logMessage.actionBy === 'player' ? 'Player' : 'Monster'
+              }}</span
+            >
+            <span v-if="logMessage.actionType === 'heal'">
+              heals for
+              <span class="log--heal">{{ logMessage.actionValue }}</span></span
+            ><span v-else-if="logMessage.actionType === 'block'">
+              blocks for
+              <span class="log--block">{{ logMessage.actionValue }}</span></span
+            >
+            <span v-else-if="logMessage.actionType === 'failed block'">
+              blocks for
+              <span class="log--failed--block"
+                >{{ logMessage.actionValue }}</span
+              ></span
+            >
+            <span v-else-if="logMessage.actionType === 'reflect'">
+              reflects damage for
+              <span class="log--reflect"> {{ logMessage.actionValue }} </span>
+            </span>
+
+            <span v-else-if="logMessage.actionType === 'critical attack'">
+              critical damage for
+              <span class="log--critical--attack"
+                >{{logMessage.actionValue}}</span
+              >
+            </span>
+            <span v-else-if="logMessage.actionType === 'poison'">
+              poison monster for
+              <span class="log--poison"> {{logMessage.actionValue}} </span>
+            </span>
+            <span v-else-if="logMessage.actionType === 'level up'">
+              <span class="log--level--up">{{logMessage.actionValue}}</span>
+            </span>
+            <span v-else>
+              attacks and deals
+              <span class="log--damage">{{ logMessage.actionValue }}</span>
+            </span>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>
