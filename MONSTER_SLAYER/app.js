@@ -119,7 +119,7 @@ const app = Vue.createApp({
       this.attackPlayer();
     },
     attackPlayer() {
-      //Damage dealt to player (Damage 8-15)
+      //Damage dealt to player (Damage 8-16)
       const attackValue = getRandomValue(8, 16);
       //10% chance of critical damage, Math Random choose 0-1
       if (Math.random() < this.criticalAttackChance) {
@@ -133,11 +133,11 @@ const app = Vue.createApp({
     specialAttackMonster() {
       //Special Attack Damage to monster
       this.currentRound++;
-      const attackValue = getRandomValue(10, 25);
+      const attackValue = getRandomValue(8, 25);
       //10% chance of critical damage, Math Random choose 0-1
       if (Math.random() < this.playerCriticalAttackChance) {
         this.monsterHealth -= attackValue * 2;
-        this.addLogMessage("player", "attack", attackValue * 2);
+        this.addLogMessage("player", "critical attack", attackValue * 2);
       } else {
         this.monsterHealth -= attackValue;
         this.addLogMessage("player", "attack", attackValue);

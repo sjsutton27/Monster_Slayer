@@ -153,7 +153,7 @@ button:disabled {
 #monster img,
 #player img {
   width: 50%;
-  height: 50%;
+  height: 200px;
   object-fit: cover;
   border: 2px solid #000;
 }
