@@ -133,14 +133,14 @@ const app = Vue.createApp({
     specialAttackMonster() {
       //Special Attack Damage to monster
       this.currentRound++;
-      const attackValue = getRandomValue(8, 25);
+      const attackValue = getRandomValue(8, 20);
       //10% chance of critical damage, Math Random choose 0-1
       if (Math.random() < this.playerCriticalAttackChance) {
         this.monsterHealth -= attackValue * 2;
         this.addLogMessage("player", "critical attack", attackValue * 2);
       } else {
         this.monsterHealth -= attackValue;
-        this.addLogMessage("player", "attack", attackValue);
+        this.addLogMessage("player", "uses special attack", attackValue);
       }
       //Checks if monstered is poison and poison rounds are not zero or less then zero
       if (this.isPoisoned && this.poisonRounds > 0) {
@@ -154,7 +154,7 @@ const app = Vue.createApp({
     healPlayer() {
       //Heals Player
       this.currentRound++;
-      const healValue = getRandomValue(8, 20);
+      const healValue = getRandomValue(8, 17);
       //Checks if players health is 100 or not
       if (this.playerHealth + healValue > 100) {
         this.playerHealth = 100;
