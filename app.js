@@ -102,7 +102,7 @@ const app = Vue.createApp({
       this.currentRound++; //Increment Rounds
       const attackValue = getRandomValue(5, 12);
       //10% chance of critical damage, Math Random choose 0-1
-      if (Math.random() < this.monsterCriticalAttackChance) {
+      if (Math.random() < this.playerCriticalAttackChance) {
         this.monsterHealth -= attackValue * 2;
         //double the damage if critical
         this.addLogMessage("player", "critical attack", attackValue * 2);
@@ -122,7 +122,7 @@ const app = Vue.createApp({
       //Damage dealt to player (Damage 8-16)
       const attackValue = getRandomValue(8, 16);
       //10% chance of critical damage, Math Random choose 0-1
-      if (Math.random() < this.criticalAttackChance) {
+      if (Math.random() < this.monsterCriticalAttackChance) {
         this.playerHealth -= attackValue * 2;
         this.addLogMessage("monster", "critical attack", attackValue * 2);
       } else {
@@ -133,7 +133,7 @@ const app = Vue.createApp({
     specialAttackMonster() {
       //Special Attack Damage to monster
       this.currentRound++;
-      const attackValue = getRandomValue(8, 20);
+      const attackValue = getRandomValue(8, 23);
       //10% chance of critical damage, Math Random choose 0-1
       if (Math.random() < this.playerCriticalAttackChance) {
         this.monsterHealth -= attackValue * 2;
@@ -154,7 +154,7 @@ const app = Vue.createApp({
     healPlayer() {
       //Heals Player
       this.currentRound++;
-      const healValue = getRandomValue(8, 20);
+      const healValue = getRandomValue(8, 18);
       //Checks if players health is 100 or not
       if (this.playerHealth + healValue > 100) {
         this.playerHealth = 100;
