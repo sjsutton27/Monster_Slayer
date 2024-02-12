@@ -133,7 +133,7 @@ const app = Vue.createApp({
     specialAttackMonster() {
       //Special Attack Damage to monster
       this.currentRound++;
-      const attackValue = getRandomValue(8, 23);
+      const attackValue = getRandomValue(8, 25);
       //10% chance of critical damage, Math Random choose 0-1
       if (Math.random() < this.playerCriticalAttackChance) {
         this.monsterHealth -= attackValue * 2;
@@ -154,7 +154,7 @@ const app = Vue.createApp({
     healPlayer() {
       //Heals Player
       this.currentRound++;
-      const healValue = getRandomValue(8, 18);
+      const healValue = getRandomValue(8, 20);
       //Checks if players health is 100 or not
       if (this.playerHealth + healValue > 100) {
         this.playerHealth = 100;
